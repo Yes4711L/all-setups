@@ -1,13 +1,12 @@
-sudo mkdir -p /usr/libexec/docker/cli-plugins
-sudo curl -SL "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# Apply executable permissions
 sudo chmod +x /usr/local/bin/docker-compose
+# Create a symbolic link
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-docker-compose version
 
+# Install using pip (Python package manager)
+sudo yum install -y python3-pip
+sudo pip3 install docker-compose
 
-
-#DOCKER BUILDX INSTALLATION COMMANDS
-mkdir -p ~/.docker/cli-plugins && \
-curl -SL https://github.com/docker/buildx/releases/download/v0.17.0/buildx-v0.17.0.linux-$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/') \
--o ~/.docker/cli-plugins/docker-buildx && \
-chmod +x ~/.docker/cli-plugins/docker-buildx
+#check version
+docker-compose --version
