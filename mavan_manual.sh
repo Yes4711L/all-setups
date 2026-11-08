@@ -1,4 +1,4 @@
-Maven Install commands:
+Maven Install commands: execution must be step by step only
 
 
 
