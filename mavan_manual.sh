@@ -12,3 +12,4 @@ export PATH=$M2_HOME/bin:$PATH
 mvn -v
 yum install java-21-amazon-corretto -y
 mvn -v
+cp -r target Docker-app
