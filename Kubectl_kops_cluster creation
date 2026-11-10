@@ -16,7 +16,17 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 
     9  export KOPS_STATE_STORE=s3://mustafa.devops77flm
 
-   10  kops create cluster --name mustafa.k8s.local --zones=us-east-2a,us-east-2b --master-size=c7i-flex.large --master-count=1 --master-volume-size=20 --node-size=t3.micro --node-count=2 --node-volume-size=20 --image=ami-0fe18bc3cfa53a248
+kops create cluster \
+  --name=mustafa.k8s.local \
+  --zones=us-east-2a,us-east-2b \
+  --control-plane-size=c7i-flex.large \
+  --control-plane-count=1 \
+  --control-plane-volume-size=20 \
+  --node-size=t3.micro \
+  --node-count=2 \
+  --node-volume-size=20 \
+  --image=ami-0fe18bc3cfa53a248
+
 
    11  kops update cluster --name mustafa.k8s.local --yes --admin
 
