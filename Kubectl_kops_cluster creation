@@ -75,6 +75,11 @@ kops create cluster \
 
 
 
+Suggestions:
+ * list clusters with: kops get cluster
+ * edit this cluster with: kops edit cluster mustafa.k8s.local
+ * edit your node instance group: kops edit ig --name=mustafa.k8s.local nodes-us-east-2a
+ * edit your control-plane instance group: kops edit ig --name=mustafa.k8s.local control-plane-us-east-2a
 
 
 
