@@ -1,1 +1,106 @@
-
+yum install docker -y && systemctl start docker
+curl -LO https://github.com/kubernetes/minikube/releases/latest/download/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube && rm minikube-linux-amd64
+minikube start --driver=docker --force
+minikube status
+history
+mkdir mustafa-user && cd mustafa-user
+openssl genrsa -out mustafa.key 2048
+ll
+openssl req -new -key mustafa.key -out mustafa.csr -subj "/CN=mustafa/O=group1"
+ll
+openssl x509 -req -in mustafa.csr -CA ~/.minikube/ca.crt -CAkey ~/.minikube/ca.key -CAcreateserial -out mustafa.crt -days 500
+ll
+kubectl config set-credentials mustafa --client-certificate=mustafa.crt --client-key=mustafa.key
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+chmod +x kubectl
+mv kubectl /usr/local/bin/
+kubectl config set-credentials mustafa --client-certificate=mustafa.crt --client-key=mustafa.key
+kubectl config view
+ll
+kubectl config view
+kubectl config set-context devops --cluster=minikube --user=mustafa
+kubectl config view --minify
+kubectl config view
+kubectl get po
+kubectl get deploy
+kubectl get svc
+kubectl config use-context devops
+kubectl config view
+kubectl get po
+kubectl get deploy
+kubectl get svc
+kubectl config use-context minikube
+kubectl get po
+kubectl get svc
+kubectl get ns
+kubectl create ns dev
+vim role.yml
+kubectl create -f role.yml
+vim role.yml
+kubectl create -f role.yml
+kubectl get role
+kubectl get role -n dev
+vim rbinding.yml
+kubectl create -f rbinding.yml
+vim rbinding.yml
+kubectl create -f rbinding.yml
+kubectl config use-context devops
+kubectl get po
+kubectl get po -n dev
+kubectl run pod-1 --image=nginx -n dev
+kubectl run pod-1 --image=nginx
+kubectl get po -n dev
+kubectl delete pod pod-1 -n dev
+kubectl get deploy -n dev
+vim role.yml
+kubectl auth can i get deploy
+kubectl auth get po
+kubectl auth can-i get po
+kubectl auth can-i get po -n dev
+kubectl auth can-i get deploy -n dev
+vim role.yml
+kubectl auth can-i get svc -n dev
+kubectl config use-context minikube
+vim role.yml
+kubectl apply -f role.yml
+kubectl config use-context devops
+kubectl auth can-i get svc
+kubectl auth can-i get svc -n dev
+kubectl auth can-i get deploy -n dev
+kubectl config use-context minikube
+vim role.yml
+kubectl apply -f role.yml
+kubectl config use-context devops
+kubectl auth can-i get deploy -n dev
+kubectl auth can-i create deploy -n dev
+kubectl config use-context minikube
+vim role.yml
+kubectl apply -f role.yml
+kubectl config use-context devops
+kubectl auth can-i create deploy -n dev
+kubectl auth can-i get deploy -n dev
+kubectl auth can-i get cm -n dev
+kubectl auth can-i get cm
+kubectl auth can-i get deploy
+kubectl config use-context minikube
+cp role.yml clusterrole.yml
+vim clusterrole.yml
+cp rbinding.yml crolebinding.yml
+vim crolebinding.yml
+kubectl create -f clusterrole.yml
+kubectl create -f crolebinding.yml
+kubectl create ns test
+kubectl create ns prod
+kubectl config use-context devops
+kubectl auth can-i get po
+kubectl auth can-i get po -n dev
+kubectl auth can-i get po -n prod
+kubectl auth can-i get po -n test
+kubectl auth can-i get cm -n test
+kubectl auth can-i get cm -n dev
+kubectl auth can-i get cm
+kubectl auth can-i get deploy
+kubectl auth can-i get deploy -n test
+kubectl auth can-i get deploy -n dev
+history
