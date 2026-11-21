@@ -1,0 +1,56 @@
+MONITORING IN K8S
+Prometheus and Grafana are two popular open-source tools commonly used in conjunction 
+with Kubernetes (K8s) for monitoring and visualization of applications and infrastructure.
+Prometheus:
+Prometheus in Kubernetes is a monitoring tool that helps keep an eye on the health and 
+performance of applications and the overall system running in a Kubernetes cluster.
+Grafana:
+Grafana in Kubernetes (K8s) is a tool used for creating visual dashboards to monitor and analyze the 
+performance of applications and infrastructure within a Kubernetes cluster.
+STEPS TO SETUP PROMETHEUS & GRAFANA IN KOPS:
+INSTALL HEML:
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+chmod 700 get_helm.sh
+./get_helm.sh
+helm version
+INSTALL K8S METRICS SERVER:
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+Verify that the metrics-server deployment is running the desired number of pods 
+kubectl get pods -n kube-system
+kubectl get deployment metrics-server -n kube-system
+INSTALL PROMETHEUS:
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+UPDATE HELM CHART REPOS:
+helm repo update
+helm repo list
+CREATE PROMETHEUS NAMESPACE:
+kubectl create namespace prometheus
+kubectl get ns
+INSTALL PROMETHEUS:
+helm install prometheus prometheus-community/prometheus --namespace prometheus --set 
+alertmanager.persistentVolume.storageClass="gp2" --set server.persistentVolume.storageClass="gp2"
+kubectl get pods -n prometheus
+kubectl get all -n prometheus
+CREATE GRAFANA NAMESPACE:
+kubectl create namespace grafana
+INSTALL GRAFANA:
+helm repo add grafana https://grafana.github.io/helm-charts
+helm install grafana grafana/grafana --namespace grafana --set persistence.storageClassName="gp2" --set 
+persistence.enabled=true --set adminPassword='EKS!sAWSome' --set  service.type=LoadBalancer
+kubectl get pods -n grafana
+kubectl get service -n grafana
+Copy the EXTERNAL-IP and paste in browser
+Go to Grafana Dashboard → Add the Datasource → Select the Prometheus
+add the below url in Connection and save and test
+http://prometheus-server.prometheus.svc.cluster.local/
+Import Grafana dashboard from Grafana Labs
+grafana dashboard → new → Import → 6417 → load → select prometheus → import
+
+NOW DEPLOY ANY APPLICATION AND SEE THE RESULT IN DASHBOARD.
+ADD 315 PORT TO MONITOR THE FOLLOWING TERMS:
+Network I/O pressure.
+Cluster CPU usage.
+Cluster Memory usage.
+Cluster filesystem usage.
+Pods CPU usage.
+ADD 1860 PORT TO MONITOR NODES INDIVIDUALLY 
