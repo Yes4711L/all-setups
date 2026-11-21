@@ -27,8 +27,13 @@ CREATE PROMETHEUS NAMESPACE:
 kubectl create namespace prometheus
 kubectl get ns
 INSTALL PROMETHEUS:
-helm install prometheus prometheus-community/prometheus --namespace prometheus --set 
-alertmanager.persistentVolume.storageClass="gp2" --set server.persistentVolume.storageClass="gp2"
+helm install prometheus prometheus-community/prometheus \
+  --namespace prometheus \
+  --create-namespace \
+  --set alertmanager.persistentVolume.storageClass="gp2" \
+  --set server.persistentVolume.storageClass="gp2"
+
+
 kubectl get pods -n prometheus
 kubectl get all -n prometheus
 CREATE GRAFANA NAMESPACE:
