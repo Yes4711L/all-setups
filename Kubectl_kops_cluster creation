@@ -31,7 +31,7 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 NOTE: dont forgot to delete the cluster after practice
 1. export KOPS_STATE_STORE=s3://<your-bucket-name>
 2. kops get cluster
-3. kops delete cluster --name cluster-name --yes
+3. kops delete cluster --name mustafa.k8s.local --yes
 
 
 
