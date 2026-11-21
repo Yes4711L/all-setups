@@ -39,9 +39,17 @@ kubectl get all -n prometheus
 CREATE GRAFANA NAMESPACE:
 kubectl create namespace grafana
 INSTALL GRAFANA:
-helm repo add grafana https://grafana.github.io/helm-charts
-helm install grafana grafana/grafana --namespace grafana --set persistence.storageClassName="gp2" --set 
-persistence.enabled=true --set adminPassword='EKS!sAWSome' --set  service.type=LoadBalancer
+helm install grafana grafana/grafana \
+  --namespace grafana \
+  --create-namespace \
+  --set persistence.storageClassName="gp2" \
+  --set persistence.enabled=true \
+  --set adminPassword='EKS!sAWSome' \
+  --set service.type=LoadBalancer
+
+
+
+
 kubectl get pods -n grafana
 kubectl get service -n grafana
 Copy the EXTERNAL-IP and paste in browser
